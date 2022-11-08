@@ -41,7 +41,9 @@ Available subcommands:
     testserver
 
 If I didn't copy the problem from github, i would do
-(Linux4.15-python3.8) tian@linux1:/home/tian/sitebase/github/django/blog$ django startproject drango_project
+   (Linux4.15-python3.8) tian@linux1:/home/tian/sitebase/github/django/blog$ django startproject drango_project
+   (Linux4.15-python3.8) tian@linux1:/home/tian/sitebase/github/django/blog$ django startproject blog
+   (Linux4.15-python3.8) tian@linux1:/home/tian/sitebase/github/django/blog$ django startproject users
 
 (Linux4.15-python3.8) tian@linux1:/home/tian/sitebase/github/django/blog/django_project$ tree
 .
@@ -110,4 +112,140 @@ __init__.py is empty. it just indicates that the folder is a python package.
 manage.py - file allows us to run command-line command. leave it as it is.
 settings.py - configuration, eg, database 
 urls.py - web user entry points
+wsgi.py —  This file contains the configuration for the Web Server Gateway Interface. The Web Server Gateway Interface (WSGI) is the Python platform standard for the deployment of web servers and applications.
+
+admin.py —  This file is used for registering your django models to the Django Administration. We will be using django-import-export package for importing and exporting the data through Django Administration.
+
+apps.py  — This file is created to help the user include any application configuration for the app. Using this, you can configure some of the attributes of the application. But I do not have any personal experience in configuring this file as most of the times Default Configuration is sufficient for our Project.
+
+models.py — This file is used to write Class based Models for our Django Applications.This will be the blueprint of our database design, relationships and attribute constraints.
+
+tests.py — This file is used to write test cases for the Application. For time being we will not go into the details of this. As I personally found this little bit complex to understand. We will be writing out separate tutorial for this.
+
+views.py  — This file will be most crucial one , we will be defining our Class Based List Views , CustomFilter Views and Detail Views for our Django Models through Serializers using Django Rest Framework. These are the classes which will be actually handling the HTTP Requests.
+
+sudo apt-get install python3-dev
+sudo apt-get install libmysqlclient-dev
+python3-dev for compiling any Python extensions and their supporting standard libraries
+libmysqlclient-dev package, which is required to build the MySQL client in backend.
+
+(Linux4.15-python3.8) pip install pillow djangorestframework
+  Pillow is a Python Image Library.
+  This provides image validation for Django's ImageField(). 
+  The Python Imaging Library adds image processing capabilities to your Python interpreter. 
+  This library provides extensive file format support, an efficient internal representation,
+  and fairly powerful image processing capabilities. 
+  For non-image file uploads, pillow is not needed.
+
+  Django REST framework 
+  a powerful and flexible toolkit for building Web APIs. 
+
+$ mysql -u root -p
+CREATE DATABASE djangodb;
+CREATE USER djangodba identified BY '12345';
+GRANT ALL ON djangodb.* TO 'djangodba'@'%';
+
+vi settings.py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'djangodb',
+        'USER': 'djangodba',
+        'PASSWORD': '12345',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+pip install mysqlclient
+...
+x86_64-linux-gnu-gcc -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -g -fwrapv -O2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -Dversion_info=(2,1,1,'final',0) -D__version__=2.1.1 -I/usr/include/mysql -I/home/tian/sitebase/python3/venv/Linux/Linux4.15-python3.8/include -I/usr/include/python3.8 -c MySQLdb/_mysql.c -o build/temp.linux-x86_64-3.8/MySQLdb/_mysql.o -std=c99
+      MySQLdb/_mysql.c:46:10: fatal error: Python.h: No such file or directory
+       #include "Python.h"
+sudo apt-get install python3.8-dev
+pip install mysqlclient
+worked
+
+pip install django-crispy-forms
+
+gernate SQL commands
+(Linux4.15-python3.8) tian@linux1:/home/tian/sitebase/github/django/blog/django_project$ python manage.py makemigrations
+
+(Linux4.15-python3.8) tian@linux1:/home/tian/sitebase/github/django/blog/django_project$ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, blog, contenttypes, sessions, users
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying blog.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying users.0001_initial... OK
+from command line mysql or mysql-workbench
+show databases
+we can see tables in djangodb created
+
+change users/models.py
+ def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+(Linux4.15-python3.8) tian@linux1:/home/tian/sitebase/github/django/blog/django_project$ python manage.py runserver
+System check identified 2 issues (0 silenced).
+November 06, 2022 - 19:16:20
+Django version 4.1.3, using settings 'django_project.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
+test sign up
+tian2/Test@123
+tianhua_han@yahoo.com
+
+test admin access
+http://127.0.0.1:8000/admin
+
+there is admin user by default
+to create admin user
+python manage.py createsuperuser
+Username: tianhuahan
+email: tianhuahan@gmail.com
+Test@123
+
+django ORM
+run makemigrations and migrate after changing models.py, so that database is updated.
+   python manage.py makemigrations'
+      will generate sql under blog/migrations/0001_initial.py
+   python manage.py sqlmigrate blog 0001 
+      will print out its corresponding sql
+   python manage.py migrate
+      will run the sql
+
+django shell
+(Linux4.15-python3.8) tian@linux1:/home/tian/sitebase/github/django/blog/django_project$ python manage.py shell
+Python 3.8.15 (default, Oct 12 2022, 19:14:39)
+[GCC 7.5.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from blog.models import Post
+>>> from django.contrib.auth.models import User
+>>> Post.objects.all()
+<QuerySet []>
+>>> Post.objects.first()
+>>> User.objects.first()
+<User: tian2>
+>>> User.objects.all()
+<QuerySet [<User: tian2>, <User: tianhuahan>, <User: testuser>]>
 

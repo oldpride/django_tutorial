@@ -31,8 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'blog.apps.BlogConfig',
-    'users.apps.UsersConfig',
+    'blog.apps.BlogConfig', # added new app, blogs/apps.py BLogConfig class
+    'users.apps.UsersConfig', # added new app, users/apps.py UsersConfig class
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -76,10 +76,20 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'djangodb',
+        'USER': 'djangodba',
+        'PASSWORD': '12345',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -119,15 +129,24 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
 STATIC_URL = '/static/'
 
+# path to save uploaded files where BASE_DIR is defined above -tian
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# public url for the media directory -tian
 MEDIA_URL = '/media/'
 
+# bootstrap version -tian
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# this controls set the page that after you login, defined in urls.py. -tian
 LOGIN_REDIRECT_URL = 'blog-home'
+
+# when you access a page that requires login but you haven't logged in, for example
+#    localhost:8000/profile
+# you will be directed to this
+#    localhost:8000/login/?next=/profile/
+# 'login' is defined in urls.py. -tian
 LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

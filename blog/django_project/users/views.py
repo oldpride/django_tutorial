@@ -8,13 +8,21 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save() # save to database -- tian
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Your account has been created! You are now able to log in')
+            messages.success(request,
+                             f'Your account has been created for {username}! You are now able to log in')
+            # other options: message.debug(), message.info(), message.warning(), message.error() -tian
+
             return redirect('login')
     else:
+        # doing nothing, returning empty form -tian
         form = UserRegisterForm()
+
     return render(request, 'users/register.html', {'form': form})
+    # 'form' kept the user data. when the submitted form was invalid, the data was saved
+    # in 'form' and displayed back, instead of displaying a new blank form, so that user
+    # didn't have to enter from scratch. -tian
 
 
 @login_required

@@ -10,6 +10,10 @@ from django.views.generic import (
 )
 from .models import Post
 
+# Hardd-coded html
+# from django.http import HttpResponse
+# def home(request):
+#     return HttpResponse('<h1>About Page</h1>')
 
 def home(request):
     context = {

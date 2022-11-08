@@ -3,6 +3,11 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from .models import Profile
 
+# this is to automatically create profile everytime a user is created -tian
+#   signal sender: User
+#   signal receiver: below decorated functions
+#   signal: 'post_save'
+# this file needs to be imported by users/apps.py
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):

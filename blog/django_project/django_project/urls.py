@@ -14,15 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
+from django.contrib.auth import views as auth_views # best practice: rename views to avoid confusion -tian
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from users import views as user_views
+from users import views as user_views # best practice: rename views to avoid confusion -tian
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/', user_views.register, name='register'),
+    path('register/', user_views.register, name='register'), # calling users/views.py register()
     path('profile/', user_views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
@@ -49,6 +49,10 @@ urlpatterns = [
     path('', include('blog.urls')),
 ]
 
-
+# this is for uploading media (uploads) -tian
+# it is only turned on in debug mode because it is not secure, therefore, not suitable for production.
+# https://docs.djangoproject.com/en/2.1/howto/static-files/#serving-files-uploaded-by-a-user-during-development
+# in production, you can use separate process, eg, rsync, to upload static files
+# https://docs.djangoproject.com/en/2.1/howto/static-files/deployment/
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

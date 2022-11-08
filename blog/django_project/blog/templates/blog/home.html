@@ -2,6 +2,7 @@
 {% block content %}
     {% for post in posts %}
         <article class="media content-section">
+            <!-- classes are from css files -->
           <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
           <div class="media-body">
             <div class="article-metadata">
@@ -35,3 +36,4 @@
 
     {% endif %}
 {% endblock content %}
+<!-- todo: should the ending be 'endblock' ? -->

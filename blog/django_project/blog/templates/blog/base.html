@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    <!-- static command generate an URL to point to the css file-->
 
     {% if title %}
         <title>Django Blog - {{ title }}</title>
@@ -28,6 +29,11 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
+                <!--
+                hard-coded way:
+                <a class="nav-item nav-link" href="/">Home</a>
+                instead, use the urlpatterns defined in urls.py
+                -->
               <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
               <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
             </div>
@@ -47,16 +53,20 @@
       </nav>
     </header>
     <main role="main" class="container">
+        <!-- class="container" is being used by css from bootstrap -->
       <div class="row">
         <div class="col-md-8">
           {% if messages %}
             {% for message in messages %}
               <div class="alert alert-{{ message.tags }}">
+                  <!-- bootstrap alert -tian -->
                 {{ message }}
               </div>
             {% endfor %}
           {% endif %}
           {% block content %}{% endblock %}
+            <!-- 'block" will be overwritten by child page
+             todo: should the ending be 'endblock content' ? -->
         </div>
         <div class="col-md-4">
           <div class="content-section">

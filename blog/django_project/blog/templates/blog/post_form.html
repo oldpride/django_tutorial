@@ -4,9 +4,12 @@
     <div class="content-section">
         <form method="POST">
             {% csrf_token %}
+            <!-- for web security -tian -->
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Blog Post</legend>
+                <!-- mb = margin bottom -tian -->
                 {{ form|crispy }}
+                <!-- crispy form -tian -->
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">Post</button>
