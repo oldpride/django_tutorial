@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
+# used by users/views.py -tian
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField() # default Required=True -tian

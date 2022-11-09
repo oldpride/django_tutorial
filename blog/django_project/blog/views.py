@@ -10,7 +10,7 @@ from django.views.generic import (
 )
 from .models import Post
 
-# Hardd-coded html
+# Hard-coded html -tian
 # from django.http import HttpResponse
 # def home(request):
 #     return HttpResponse('<h1>About Page</h1>')
@@ -23,10 +23,10 @@ def home(request):
 
 
 class PostListView(ListView):
-    model = Post
+    model = Post # this corresponds to blog/models Post class -tian
     template_name = 'blog/home.html'  # <app>/<model>_<viewtype>.html
-    context_object_name = 'posts'
-    ordering = ['-date_posted']
+    context_object_name = 'posts' # variable name in template html -tian
+    ordering = ['-date_posted'] # without '-', 'data_posted' would be oldest-to-newest, -tian
     paginate_by = 5
 
 
@@ -44,12 +44,13 @@ class UserPostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
 
-
+# LoginRequiredMixin needs to the first in the list -tian
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
 
     def form_valid(self, form):
+        # author is a foreign key (blog/models.py), therefore is required to set -tian
         form.instance.author = self.request.user
         return super().form_valid(form)
 
@@ -62,6 +63,8 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+    # test_func() is called by serPassesTestMixin -tian
+    # this prevents user from updating posts not authored by him/her -tian
     def test_func(self):
         post = self.get_object()
         if self.request.user == post.author:
@@ -71,6 +74,10 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
+
+    # upon delete success, we go to this URL
+    # delete will fail without this URL.
+    # delete operation is either all (success) or nothing (done).
     success_url = '/'
 
     def test_func(self):
@@ -78,6 +85,8 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+    # todo: how to add a message.success() like it in users/views.py -tian
 
 
 def about(request):

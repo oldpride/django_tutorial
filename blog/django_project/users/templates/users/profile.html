@@ -13,10 +13,12 @@
         </div>
       </div>
       <form method="POST" enctype="multipart/form-data">
+          <!-- if form looks ike working but being saved in the background, enctype is missing. -tian -->
           {% csrf_token %}
           <!-- web security thing -tian  -->
           <fieldset class="form-group">
               <legend class="border-bottom mb-4">Profile Info</legend>
+              <!-- users/views.py, u_form is user form, p_form is profile form. -tian -->
               {{ u_form|crispy }}
               {{ p_form|crispy }}
           </fieldset>

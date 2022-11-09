@@ -29,6 +29,7 @@ def register(request):
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
+        # without instance=..., we will get a blank form. instance= populate the form. -tian
         p_form = ProfileUpdateForm(request.POST,
                                    request.FILES,
                                    instance=request.user.profile)
@@ -36,6 +37,19 @@ def profile(request):
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
+
+            # use redirect() instead of render(request). -tian
+            # this is called post-get-redirect pattern.
+            #    when you reload your browser after submitting a form, an alert message
+            #    comes up that says: are you sure that you want to reload because the
+            #    data will be resubmitted.
+            #
+            #    this is because your browser is telling you that you are about to run
+            #    another post request when you reload your page.
+            #
+            #    therefore, redirecting here causes browser to send a get request and then we
+            #    don't get the alert message.
+            #
             return redirect('profile')
 
     else:
@@ -47,4 +61,4 @@ def profile(request):
         'p_form': p_form
     }
 
-    return render(request, 'users/profile.html', context)
+    return render(request, 'users/profile.html', context) # users/templates/users/profile.html -tian

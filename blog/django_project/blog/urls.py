@@ -10,9 +10,15 @@ from .views import (
 from . import views
 
 urlpatterns = [
-    path('', PostListView.as_view(), name='blog-home'), # don't generic 'home' to avoid ambiguity
+    # don't generic name 'home' to avoid ambiguity -tian
+    # path('', views.home, name='blog-home'),
+    #
+    # PostListView default template is <app>/<model>_<viewtype>.html, or blog/Post_List.html
+    # in blog/views.py, we set template_name = 'blog/home.html'
+    path('', PostListView.as_view(), name='blog-home'),
+
     path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
-    path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
+    path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'), # pk is primary key, -tian
     path('post/new/', PostCreateView.as_view(), name='post-create'),
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),

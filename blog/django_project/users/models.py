@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from PIL import Image
+from PIL import Image # pillow module -tian
 
 # after changing this file, do the following. -tian
 #    restart django will not be enough
@@ -29,6 +29,7 @@ class Profile(models.Model):
         img = Image.open(self.image.path)
 
         if img.height > 300 or img.width > 300:
+            # resize image -tian
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)

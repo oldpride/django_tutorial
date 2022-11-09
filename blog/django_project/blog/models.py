@@ -20,5 +20,10 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    # once we created the post, we need to tell django where to redirect - by define get_absolute_url() -tian
     def get_absolute_url(self):
+        # redirect() vs reverse() -tian
+        #   redirect() will direct you to a specific route defined in urls.py. example: users/views.py
+        #   reverse() will simply return the url to that route as a string
         return reverse('post-detail', kwargs={'pk': self.pk})
+        # 'post-detail' is defined in blog/urls.py -tian

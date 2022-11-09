@@ -249,3 +249,34 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> User.objects.all()
 <QuerySet [<User: tian2>, <User: tianhuahan>, <User: testuser>]>
 
+load test posts
+the test posts were assigned to auth_user id=1 and id=2.
+I didn't have id=1 because i deleted it during test.
+I moved id=5 to id=1.
+note: because id is used as a foreign key, if we updated it directly, we would get error
+   update djangodb.auth_user set id=1 where id=5
+   Error Code: 1451. Cannot delete or update a parent row: a foreign key constraint fails (`djangodb`.`users_profile`, CONSTRAINT `users_profile_user_id_2112e78d_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`))
+
+to work around
+SET FOREIGN_KEY_CHECKS=0;
+update djangodb.auth_user set id=1 where id=5
+SET FOREIGN_KEY_CHECKS=1; -- to re-enable them
+
+also update other places
+update djangodb.users_profile set user_id=1 where user_id=5
+
+# python manage.py shell
+import json
+from blog.models import Post
+with open('posts.json') as f:
+    posts_json = json.load(f)
+
+for post in posts_json:
+    post = Post(title=post['title'], content=post['content'], author_id=post['user_id'])
+    post.save()
+
+quit()
+
+restart django
+pyth manage.py runserver
+
