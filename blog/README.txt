@@ -211,8 +211,8 @@ Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 
 test sign up
-tian2/Test@123
-tianhua_han@yahoo.com
+tian ...
+email ...
 
 test admin access
 http://127.0.0.1:8000/admin
@@ -221,7 +221,7 @@ there is admin user by default
 to create admin user
 python manage.py createsuperuser
 Username: tianhuahan
-email: tianhuahan@gmail.com
+email: ...
 Test@123
 
 django ORM
@@ -279,4 +279,27 @@ quit()
 
 restart django
 pyth manage.py runserver
+
+create app password, Go to your Google Account, https://myaccount.google.com/.
+   Select Security.
+
+   Under "Signing in to Google," select App Passwords. You may need to sign in. If you don’t have this option, it might be because:
+
+   At the bottom, choose Select app and choose the app you using and then Select device and choose the device you’re using and then Generate.
+
+to delete the app password, Go to your Google Account, https://myaccount.google.com/.
+
+moved all passwords to .env
+tian@linux1:/home/tian/sitebase/github/django/blog/django_project$ cat .env
+DATABASE_NAME=djangodb
+DATABASE_USER=djangodba
+DATABASE_PASS=12345
+
+SECRET_KEY='fexhlfdat&vfum(-34*c2uroi(($ww(yo$9pv98=e6p^gl(-eoj'
+
+EMAIL_USER=...
+EMAIL_PASS=...
+
+
+
 

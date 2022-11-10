@@ -21,13 +21,13 @@ def home(request):
     }
     return render(request, 'blog/home.html', context)
 
-
+# called by blog/urls.py
 class PostListView(ListView):
     model = Post # this corresponds to blog/models Post class -tian
     template_name = 'blog/home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts' # variable name in template html -tian
     ordering = ['-date_posted'] # without '-', 'data_posted' would be oldest-to-newest, -tian
-    paginate_by = 5
+    paginate_by = 5 # used by blog/templates/blog/home.html
 
 
 class UserPostListView(ListView):
@@ -37,6 +37,7 @@ class UserPostListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
+        # if the user exists, we get the user; otherwise, we return 404 (page not found) -tian
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
 
