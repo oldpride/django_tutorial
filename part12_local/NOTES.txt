@@ -142,7 +142,7 @@ libmysqlclient-dev package, which is required to build the MySQL client in backe
 
 $ mysql -u root -p
 CREATE DATABASE djangodb;
-CREATE USER djangodba identified BY '12345';
+CREATE USER djangodba identified BY 'xxxxx';
 GRANT ALL ON djangodb.* TO 'djangodba'@'%';
 
 vi settings.py
@@ -151,7 +151,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djangodb',
         'USER': 'djangodba',
-        'PASSWORD': '12345',
+        'PASSWORD': 'xxxxxx',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -222,7 +222,6 @@ to create admin user
 python manage.py createsuperuser
 Username: tianhuahan
 email: ...
-Test@123
 
 django ORM
 run makemigrations and migrate after changing models.py, so that database is updated.
@@ -293,7 +292,7 @@ moved all passwords to .env
 tian@linux1:/home/tian/sitebase/github/django/blog/django_project$ cat .env
 DATABASE_NAME=djangodb
 DATABASE_USER=djangodba
-DATABASE_PASS=12345
+DATABASE_PASS=xxxxx
 
 SECRET_KEY='fexhlfdat&vfum(-34*c2uroi(($ww(yo$9pv98=e6p^gl(-eoj'
 
