@@ -211,8 +211,6 @@ Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 
 test sign up
-tian ...
-email ...
 
 test admin access
 http://127.0.0.1:8000/admin
@@ -220,7 +218,7 @@ http://127.0.0.1:8000/admin
 there is admin user by default
 to create admin user
 python manage.py createsuperuser
-Username: tianhuahan
+Username: xxxx
 email: ...
 
 django ORM
