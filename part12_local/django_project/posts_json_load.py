@@ -1,4 +1,7 @@
 # python manage.py shell
+# or
+# exec(open("posts_json_load.py").read())
+
 import json
 from blog.models import Post
 with open('posts.json') as f:
@@ -9,3 +12,4 @@ for post in posts_json:
     post.save()
 
 quit()
+
