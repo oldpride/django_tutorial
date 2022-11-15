@@ -178,3 +178,18 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+# the above is to disable the following Warnings
+#     see https://stackoverflow.com/questions/66971594/
+# WARNINGS:
+# blog.Post: (models.W042) Auto-created primary key used when not defining
+#         a primary key type, by default 'django.db.models.AutoField'.
+# 	HINT: Configure the DEFAULT_AUTO_FIELD setting or the
+#      	BlogConfig.default_auto_field attribute to point to a subclass of
+#      	AutoField, e.g. 'django.db.models.BigAutoField'.
+# users.Profile: (models.W042) Auto-created primary key used when not
+#         defining a primary key type, by default 'django.db.models.AutoField'.
+# 	HINT: Configure the DEFAULT_AUTO_FIELD setting or the
+#      	UsersConfig.default_auto_field attribute to point to a subclass of
+#      	AutoField, e.g. 'django.db.models.BigAutoField'.
