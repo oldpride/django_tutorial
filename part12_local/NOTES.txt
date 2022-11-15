@@ -292,7 +292,7 @@ DATABASE_NAME=djangodb
 DATABASE_USER=djangodba
 DATABASE_PASS=xxxxx
 
-SECRET_KEY='fexhlfdat&vfum(-34*c2uroi(($ww(yo$9pv98=e6p^gl(-eoj'
+SECRET_KEY='exhlfdat&vxy12m(-34*c2uroi(($ww(yo$9pv98=e6p^gl(-eoj'
 
 EMAIL_USER=...
 EMAIL_PASS=...
